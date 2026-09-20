@@ -1,0 +1,8 @@
+# Runtime. agent-fleet is installed straight from GitHub so this demo always
+# tracks the framework it is demonstrating.
+agent-fleet @ git+https://github.com/Diski7/agent-fleet.git@main
+Flask==3.0.3
+gunicorn==22.0.0
+
+# Dev
+pytest==8.3.2

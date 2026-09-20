@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fleet Console — agent-fleet live demo</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Fleet Console</h1>
+    <p class="sub">A live front end for <strong>agent-fleet</strong> — routing, fallbacks, guardrails and cost on a real run.</p>
+    <p class="badges">
+      <span class="badge">deterministic mock provider</span>
+      <span class="badge">no network</span>
+      <span class="badge">no API keys</span>
+    </p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="panel">
+    <label for="task">Task</label>
+    <textarea id="task" rows="3">Draft a competitive brief on AI agent frameworks.</textarea>
+    <div class="row">
+      <label class="check">
+        <input type="checkbox" id="chaos">
+        Take the cheap model offline <span class="hint">— forces the fallback chain</span>
+      </label>
+    </div>
+    <div class="row">
+      <button id="run">Run the fleet</button>
+      <button class="ghost" data-fill="injection">Try a prompt injection</button>
+      <button class="ghost" data-fill="secret">Try a leaked key</button>
+    </div>
+    <p id="error" class="error" hidden></p>
+  </section>
+
+  <section id="results" hidden>
+    <h2>Run summary</h2>
+    <div class="grid" id="summary"></div>
+    <h2>Stages</h2>
+    <div id="stages"></div>
+    <h2>Trace</h2>
+    <div class="tablewrap">
+      <table id="spans">
+        <thead><tr>
+          <th>#</th><th>name</th><th>role</th><th>model</th>
+          <th>attempt</th><th>ms</th><th>tokens</th><th>cost</th><th>ok</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel muted">
+    <h2>How it is wired</h2>
+    <div id="config">Loading…</div>
+  </section>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

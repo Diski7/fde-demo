@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fleet-console"
+version = "1.0.0"
+description = "A live web console for the agent-fleet orchestrator: routing, fallbacks, guardrails and cost on a real run."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "agent-fleet @ git+https://github.com/Diski7/agent-fleet.git@main",
+    "Flask==3.0.3",
+    "gunicorn==22.0.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==8.3.2"]
+
+[tool.setuptools]
+packages = ["fleet_console"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
