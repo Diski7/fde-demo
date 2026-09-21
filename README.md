@@ -52,7 +52,10 @@ docker run --rm -p 8080:8080 fleet-console
 
 ## The interesting part: what fallback costs
 
-Flip the chaos switch and the summary grows a comparison card:
+Flip the chaos switch and the summary grows a comparison card. These are the
+real numbers for the console's default task —
+`Draft a competitive brief on AI agent frameworks.` — reproducible by running
+the pipeline twice:
 
 ```
 attempts            8
@@ -61,14 +64,23 @@ cost                $0.001470
 baseline            $0.000663        (+$0.000807)
 ```
 
+`attempts` is the **run total**, counted by the shared tracer rather than summed
+from the stages: each stage counts its own attempts, and the tracer also counts
+the baseline comparison run. The stage-level view for the same run is `[2, 2, 1]`
+— the two failures plus the three successful stages.
+
 Reliability is not free, and now it has a price tag. That number is produced by
 running the *same task twice* — once with the cheap model healthy, once without
 — so the delta is measured, not estimated.
 
 In this run both `classifier` and `researcher` lost their first attempt to the
 offline cheap model and landed on the frontier model on attempt 2; `writer`
-started on the frontier and never failed. The run succeeded, cost 2.2× the
+started on the frontier and never failed. The run succeeded, cost 2.22× the
 baseline, and the two failed attempts are still visible in the trace.
+
+The cost depends on task length, so other tasks produce different numbers with
+the same shape. `Draft a brief`, for example, runs to $0.000984 against a
+$0.000495 baseline — a 1.99× ratio. Both paths are covered by the test suite.
 
 ---
 
